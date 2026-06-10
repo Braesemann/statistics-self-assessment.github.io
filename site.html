@@ -5,151 +5,454 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to Statistics — Self-Assessment</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=B612+Mono&family=Lato:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F4F6F8;
-    --ink:#15233C;
-    --ink-soft:#48586F;
-    --cobalt:#2B5CE6;
-    --cobalt-deep:#1E43AC;
-    --amber:#D98E2B;
-    --green:#1F7A4D;
-    --red:#B03A2E;
-    --line:#D4DAE3;
-    --card:#FFFFFF;
-    --serif:'IBM Plex Serif', Georgia, serif;
-    --sans:'IBM Plex Sans', -apple-system, sans-serif;
-    --mono:'IBM Plex Mono', 'Courier New', monospace;
+    --oxford:#002147;
+    --navy:#0e2050;
+    --blue:#0e6fab;
+    --sky:#b4daf3;
+    --sky-soft:#e2f4fd;
+    --ink:#20242a;
+    --ink-soft:#55606c;
+    --paper:#ffffff;
+    --line:#d7e5ed;
+    --amber:#ffb175;
+    --green:#26724b;
+    --green-soft:#e9f5ee;
+    --red:#a93425;
+    --red-soft:#f9ece9;
+    --card:#ffffff;
+    --cobalt:var(--blue);
+    --sans:'Roboto', Arial, sans-serif;
+    --display:'Lato', Arial, sans-serif;
+    --mono:'B612 Mono', 'Courier New', monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{
     font-family:var(--sans);
     background:var(--paper);
-    background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:32px 32px;
-    background-position:-1px -1px;
     color:var(--ink);
     min-height:100vh;
-    line-height:1.55;
+    line-height:1.4;
+    padding-top:10px;
+    overflow-x:hidden;
   }
-  .wrap{max-width:680px;margin:0 auto;padding:48px 20px 80px}
-  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt-deep);margin-bottom:14px}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.15;margin-bottom:18px}
-  h1 em{font-style:italic;color:var(--cobalt)}
-  .lede{color:var(--ink-soft);font-size:1.02rem;max-width:54ch;margin-bottom:28px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px;box-shadow:0 1px 3px rgba(21,35,60,.06)}
-  .sections-preview{display:grid;gap:0;margin:26px 0 30px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
-  .sec-row{display:flex;align-items:baseline;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  img{max-width:100%;height:auto;display:block}
+  button{font-family:var(--sans);cursor:pointer}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{color:var(--navy)}
+  .container{
+    width:100%;
+    max-width:1160px;
+    margin:0 auto;
+    padding:0 15px;
+  }
+  @media (min-width:768px){.container{padding:0 30px}}
+  @media (min-width:1120px){.container{padding:0 40px}}
+  .skip-link{
+    position:absolute;
+    left:-999px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+  }
+  .skip-link:focus{
+    left:20px;
+    top:20px;
+    width:auto;
+    height:auto;
+    z-index:10;
+    padding:10px 14px;
+    background:var(--blue);
+    color:#fff;
+    border-radius:8px;
+  }
+  .site-header{background:#fff}
+  .site-header__inner{
+    min-height:86px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:28px;
+    position:relative;
+  }
+  .brand{display:inline-flex;align-items:center}
+  .brand img{width:140px}
+
+  .title-section{margin-top:10px}
+  .title-card{
+    position:relative;
+    min-height:330px;
+    background:var(--oxford);
+    overflow:hidden;
+    border-radius:8px;
+  }
+  .hero-curve{
+    display:none;
+    position:absolute;
+    left:0;
+    top:0;
+    height:100%;
+    z-index:1;
+  }
+  .hero-curve path{fill:var(--blue)}
+  .hero-image{
+    position:relative;
+    height:210px;
+    overflow:hidden;
+  }
+  .hero-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .mini-logo{
+    display:none;
+    position:absolute;
+    right:24px;
+    bottom:22px;
+    width:96px;
+    z-index:3;
+  }
+  .title-copy{
+    position:relative;
+    z-index:2;
+    background:var(--blue);
+    padding:28px;
+    color:#fff;
+  }
+  .eyebrow{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:.78rem;
+    letter-spacing:0;
+    margin-bottom:14px;
+  }
+  .eyebrow{text-transform:uppercase}
+  .eyebrow{color:var(--blue)}
+  h1{
+    font-family:var(--display);
+    font-size:2rem;
+    line-height:1.12;
+    font-weight:900;
+    color:#fff;
+    margin:0 0 14px;
+    overflow-wrap:break-word;
+  }
+  h1 em{font-style:normal;color:#fff}
+  h1 span{display:block;white-space:nowrap}
+  @media (min-width:768px){
+    .title-card{height:395px}
+    .hero-curve{display:block;width:500px}
+    .hero-image{
+      position:absolute;
+      right:0;
+      top:0;
+      width:68%;
+      height:100%;
+      z-index:0;
+    }
+    .title-copy{
+      width:480px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:transparent;
+      padding:44px 46px;
+    }
+    .mini-logo{display:block}
+    h1{font-size:2.65rem}
+  }
+
+  .assessment-section{padding:30px 0 72px}
+  .assessment-panel{
+    position:relative;
+    background:var(--sky-soft);
+    border-top:1px solid var(--blue);
+    border-bottom:1px solid var(--blue);
+    overflow:hidden;
+  }
+  .assessment-panel::before{
+    content:"";
+    position:absolute;
+    left:-70px;
+    top:-120px;
+    width:310px;
+    height:210px;
+    background:var(--blue);
+    opacity:.16;
+    border-radius:0 0 100% 0;
+  }
+  .assessment-content{
+    position:relative;
+    padding:28px;
+    display:grid;
+    gap:28px;
+    min-width:0;
+  }
+  .lede{
+    color:var(--ink);
+    font-size:1.1rem;
+    font-weight:300;
+    max-width:66ch;
+    margin-bottom:24px;
+    overflow-wrap:break-word;
+  }
+  .intro-grid{
+    display:grid;
+    gap:26px;
+  }
+  @media (min-width:880px){
+    .assessment-content{padding:44px}
+    .intro-grid{grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);align-items:start}
+  }
+  .sections-preview{
+    display:grid;
+    gap:0;
+    border:1px solid var(--line);
+    border-left:8px solid var(--blue);
+    background:#fff;
+  }
+  .sec-row{
+    display:grid;
+    grid-template-columns:minmax(64px,.25fr) minmax(0,1fr) auto;
+    align-items:baseline;
+    gap:14px;
+    padding:15px 18px;
+    border-bottom:1px solid var(--line);
+  }
   .sec-row:last-child{border-bottom:none}
-  .sec-sym{font-family:var(--mono);font-size:1rem;color:var(--cobalt);min-width:2.2em}
+  .sec-sym{font-family:var(--mono);font-size:.95rem;color:var(--blue);min-width:2.2em}
   .sec-name{font-weight:600;font-size:.95rem}
   .sec-count{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--ink-soft)}
-  button{font-family:var(--sans);cursor:pointer}
   .btn{
-    display:inline-block;background:var(--cobalt);color:#fff;border:none;border-radius:8px;
-    padding:13px 26px;font-size:1rem;font-weight:600;transition:background .15s;
+    display:inline-block;
+    background:var(--blue);
+    color:#fff;
+    border:0;
+    border-radius:20px;
+    padding:11px 22px;
+    font-size:.96rem;
+    font-weight:700;
+    transition:background .15s ease,color .15s ease,box-shadow .15s ease;
   }
-  .btn:hover{background:var(--cobalt-deep)}
-  .btn:focus-visible,.opt:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+  .btn:hover{background:var(--navy);color:#fff}
+  .btn:focus-visible,.opt:focus-visible,.ghost:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
   .btn:disabled{opacity:.4;cursor:default}
-  .note{font-family:var(--mono);font-size:.75rem;color:var(--ink-soft);margin-top:14px}
+  .note{font-family:var(--mono);font-size:.75rem;color:var(--ink-soft);margin-top:14px;overflow-wrap:break-word}
 
   /* quiz */
-  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-  .chip{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--ink);padding:4px 10px;border-radius:4px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:10px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--display);
+    font-size:.8rem;
+    font-weight:700;
+    text-transform:uppercase;
+    color:#fff;
+    background:var(--navy);
+    padding:7px 12px;
+  }
   .progress-label{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
-  .track{height:4px;background:var(--line);border-radius:2px;margin-bottom:26px;overflow:hidden}
+  .track{height:6px;background:#fff;border:1px solid var(--line);margin-bottom:24px;overflow:hidden}
   .fill{height:100%;background:var(--cobalt);width:0%;transition:width .3s ease}
-  .qtext{font-family:var(--serif);font-size:1.22rem;font-weight:600;line-height:1.4;margin-bottom:22px}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:8px solid var(--blue);
+    border-radius:8px;
+    padding:24px;
+    box-shadow:0 4px 14px rgba(0,33,71,.08);
+  }
+  .qtext{
+    font-family:var(--display);
+    font-size:1.28rem;
+    font-weight:700;
+    line-height:1.35;
+    margin-bottom:22px;
+    color:var(--navy);
+  }
   .opts{display:grid;gap:10px}
   .opt{
-    text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:8px;
-    padding:13px 16px;font-size:.97rem;line-height:1.45;color:var(--ink);
-    transition:border-color .12s, background .12s;display:flex;gap:12px;align-items:baseline;
+    text-align:left;
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:5px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    font-size:.98rem;
+    line-height:1.45;
+    color:var(--ink);
+    transition:border-color .12s ease, background .12s ease, transform .12s ease;
+    display:flex;
+    gap:12px;
+    align-items:baseline;
   }
-  .opt:hover:not(:disabled){border-color:var(--cobalt)}
-  .opt .key{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);min-width:1.1em}
-  .opt.correct{border-color:var(--green);background:#EFF7F2}
-  .opt.wrong{border-color:var(--red);background:#FBF1EF}
+  .opt:hover:not(:disabled){border-color:var(--blue);border-left-color:var(--blue);transform:translateX(2px)}
+  .opt .key{font-family:var(--mono);font-size:.78rem;color:var(--blue);min-width:1.5em}
+  .opt.correct{border-color:var(--green);border-left-color:var(--green);background:var(--green-soft)}
+  .opt.wrong{border-color:var(--red);border-left-color:var(--red);background:var(--red-soft)}
   .opt:disabled{cursor:default}
-  .feedback{margin-top:18px;padding:14px 16px;border-radius:8px;font-size:.92rem;display:none}
+  .feedback{margin-top:18px;padding:14px 16px;border-radius:8px;font-size:.94rem;display:none}
   .feedback.show{display:block}
-  .feedback.good{background:#EFF7F2;border:1px solid #BCDCCB;color:#174D32}
-  .feedback.bad{background:#FBF1EF;border:1px solid #E5C2BC;color:#6E261D}
-  .feedback .verdict{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:5px}
+  .feedback.good{background:var(--green-soft);border:1px solid #bbd9c8;color:#174d32}
+  .feedback.bad{background:var(--red-soft);border:1px solid #e6bdb5;color:#6e261d}
+  .feedback .verdict{font-family:var(--display);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:0;display:block;margin-bottom:5px}
   .nextrow{margin-top:20px;text-align:right}
 
   /* results */
-  .result-sec{padding:20px 0;border-bottom:1px solid var(--line)}
+  .result-sec{padding:22px 0;border-bottom:1px solid var(--line)}
   .result-sec:last-of-type{border-bottom:none}
   .result-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap}
   .result-head .sec-sym{min-width:auto}
-  .level{margin-left:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:4px}
-  .level.l0{background:#FBF1EF;color:var(--red);border:1px solid #E5C2BC}
-  .level.l1{background:#FAF3E6;color:#8A5A14;border:1px solid #E8D5B0}
-  .level.l2{background:#EFF7F2;color:var(--green);border:1px solid #BCDCCB}
+  .level{margin-left:auto;font-family:var(--display);font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:0;padding:5px 10px;border-radius:4px}
+  .level.l0{background:var(--red-soft);color:var(--red);border:1px solid #e6bdb5}
+  .level.l1{background:#fff6e9;color:#8a571f;border:1px solid #f1cfaa}
+  .level.l2{background:var(--green-soft);color:var(--green);border:1px solid #bbd9c8}
   .dotplot{margin:6px 0 12px}
   .dotplot svg{display:block;width:100%;height:34px}
   .recs{font-size:.9rem;color:var(--ink-soft)}
-  .recs a{color:var(--cobalt-deep);font-weight:500}
-  .recs a:hover{color:var(--cobalt)}
-  .overall{font-family:var(--serif);font-size:1.1rem;margin:6px 0 26px}
+  .recs a{color:var(--blue);font-weight:500}
+  .recs a:hover{color:var(--navy)}
+  .overall{font-size:1.08rem;margin:6px 0 24px;max-width:70ch}
   .restart{margin-top:30px;text-align:center}
-  .ghost{background:none;border:1.5px solid var(--ink);color:var(--ink);border-radius:8px;padding:11px 24px;font-weight:600;font-size:.95rem}
-  .ghost:hover{background:var(--ink);color:#fff}
+  .ghost{background:none;border:2px solid var(--navy);color:var(--navy);border-radius:20px;padding:10px 22px;font-weight:700;font-size:.95rem}
+  .ghost:hover{background:var(--navy);color:#fff}
+  .site-footer{background:var(--navy);color:#fff;margin-top:10px}
+  .footer-grid{
+    display:block;
+    padding-top:40px;
+    padding-bottom:40px;
+  }
+  .footer-grid img{width:190px;margin-bottom:22px}
+  .site-footer h2{
+    font-family:var(--display);
+    font-size:1.05rem;
+    margin-bottom:14px;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+  .site-footer p,.site-footer li{font-size:.92rem;line-height:1.55}
+  .site-footer ul{list-style:disc;margin-left:18px}
+  .site-footer a{color:#85c6ff}
+  .footer-bar{background:#000;color:#fff;font-size:.8rem;padding:18px 0}
   .hidden{display:none}
-  @media (prefers-reduced-motion: reduce){ .fill{transition:none} }
-  @media (max-width:520px){ .card{padding:20px} .wrap{padding-top:30px} }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .fill,.btn,.opt{transition:none}
+  }
+  @media (max-width:560px){
+    .assessment-content,.card{padding:20px}
+    .sec-row{grid-template-columns:1fr;gap:6px}
+    .sec-count{margin-left:0}
+    h1{font-size:1.75rem}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="skip-link" href="#assessment">Skip to assessment</a>
 
-  <!-- ============ INTRO ============ -->
-  <div id="screen-intro">
-    <p class="eyebrow">Introduction to Statistics &middot; Pre-term self-assessment</p>
-    <h1>Where do you stand, <em>statistically speaking</em>?</h1>
-    <p class="lede">Twenty-four questions, three sections, no preparation needed. You'll get instant feedback on every answer and a section-by-section reading of where to brush up before term starts. Allow 15&ndash;20 minutes.</p>
-    <div class="sections-preview">
-      <div class="sec-row"><span class="sec-sym">x&#772;, s&sup2;</span><span class="sec-name">Descriptive statistics</span><span class="sec-count">n = 8</span></div>
-      <div class="sec-row"><span class="sec-sym">P(A|B)</span><span class="sec-name">Probability calculus</span><span class="sec-count">n = 8</span></div>
-      <div class="sec-row"><span class="sec-sym">H&#8320;</span><span class="sec-name">Inference</span><span class="sec-count">n = 8</span></div>
-    </div>
-    <button class="btn" onclick="startQuiz()">Start the assessment</button>
-    <p class="note">Your answers stay on this page &mdash; nothing is recorded or submitted.</p>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#" aria-label="Oxford Internet Institute">
+      <img src="assets/oii-blue-text-140.png" alt="Oxford Internet Institute logo">
+    </a>
   </div>
+</header>
 
-  <!-- ============ QUIZ ============ -->
-  <div id="screen-quiz" class="hidden">
-    <div class="topbar">
-      <span class="chip" id="section-chip">Descriptive statistics</span>
-      <span class="progress-label" id="progress-label">n = 1 / 24</span>
+<main>
+  <section class="title-section" aria-label="Page title">
+    <div class="container">
+      <div class="title-card">
+        <svg class="hero-curve" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 405.79 395" preserveAspectRatio="none"><path d="M0,395H341.74A336.52,336.52,0,0,0,341.74,0H0Z"></path></svg>
+        <div class="hero-image">
+          <img src="assets/study-alt1.jpg" alt="Students in a seminar room">
+        </div>
+        <img class="mini-logo" src="assets/oii-white-text-140.png" alt="Oxford Internet Institute">
+        <div class="title-copy">
+          <h1>Introduction to Statistics <span>Self-Assessment</span></h1>
+        </div>
+      </div>
     </div>
-    <div class="track"><div class="fill" id="progress-fill"></div></div>
-    <div class="card">
-      <p class="qtext" id="qtext"></p>
-      <div class="opts" id="opts"></div>
-      <div class="feedback" id="feedback"><span class="verdict" id="verdict"></span><span id="explain"></span></div>
-      <div class="nextrow"><button class="btn" id="next-btn" disabled onclick="nextQuestion()">Next question</button></div>
+  </section>
+
+  <section id="assessment" class="assessment-section">
+    <div class="container">
+      <div class="assessment-panel">
+        <div class="assessment-content">
+
+          <!-- ============ INTRO ============ -->
+          <div id="screen-intro">
+            <div class="intro-grid">
+              <div>
+                <p class="eyebrow">Introduction to Statistics Pre-Term Self-Assessment</p>
+                <p class="lede">This assessment is intended to help you check your current understanding of three core areas of introductory statistics before the course begins. Your responses are processed locally in your browser and are not recorded.</p>
+                <button class="btn" onclick="startQuiz()">Start the Assessment</button>
+              </div>
+              <div class="sections-preview" aria-label="Assessment sections">
+                <div class="sec-row"><span class="sec-sym">x&#772;, s&sup2;</span><span class="sec-name">Descriptive Statistics</span><span class="sec-count">n = 8</span></div>
+                <div class="sec-row"><span class="sec-sym">P(A|B)</span><span class="sec-name">Probability Calculus</span><span class="sec-count">n = 8</span></div>
+                <div class="sec-row"><span class="sec-sym">H&#8320;</span><span class="sec-name">Inference</span><span class="sec-count">n = 8</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ QUIZ ============ -->
+          <div id="screen-quiz" class="hidden">
+            <div class="topbar">
+              <span class="chip" id="section-chip">Descriptive Statistics</span>
+              <span class="progress-label" id="progress-label">n = 1 / 24</span>
+            </div>
+            <div class="track"><div class="fill" id="progress-fill"></div></div>
+            <div class="card">
+              <p class="qtext" id="qtext"></p>
+              <div class="opts" id="opts"></div>
+              <div class="feedback" id="feedback"><span class="verdict" id="verdict"></span><span id="explain"></span></div>
+              <div class="nextrow"><button class="btn" id="next-btn" disabled onclick="nextQuestion()">Next Question</button></div>
+            </div>
+          </div>
+
+          <!-- ============ RESULTS ============ -->
+          <div id="screen-results" class="hidden">
+            <p class="eyebrow">Your results</p>
+            <p class="overall" id="overall-text"></p>
+            <div class="card" id="results-body"></div>
+            <div class="restart"><button class="ghost" onclick="location.reload()">Take It Again</button></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="assets/oii-white-text-140.png" alt="Oxford Internet Institute">
+      <p>Stephen A. Schwarzman Centre for the Humanities<br>University of Oxford</p>
     </div>
   </div>
-
-  <!-- ============ RESULTS ============ -->
-  <div id="screen-results" class="hidden">
-    <p class="eyebrow">Your results</p>
-    <h1 id="results-title">The verdict</h1>
-    <p class="overall" id="overall-text"></p>
-    <div class="card" id="results-body"></div>
-    <div class="restart"><button class="ghost" onclick="location.reload()">Take it again</button></div>
+  <div class="footer-bar">
+    <div class="container">Oxford Internet Institute &middot; University of Oxford</div>
   </div>
-
-</div>
+</footer>
 
 <script>
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('pageshow', () => {
+  window.scrollTo(0, 0);
+});
+
 const SECTIONS = [
-  {name:"Descriptive statistics", sym:"x\u0304, s\u00B2"},
-  {name:"Probability calculus", sym:"P(A|B)"},
+  {name:"Descriptive Statistics", sym:"x\u0304, s\u00B2"},
+  {name:"Probability Calculus", sym:"P(A|B)"},
   {name:"Inference", sym:"H\u2080"}
 ];
 
@@ -258,6 +561,7 @@ function startQuiz(){
   idx = 0; scores = [0,0,0];
   document.getElementById('screen-intro').classList.add('hidden');
   document.getElementById('screen-quiz').classList.remove('hidden');
+  document.getElementById('assessment').scrollIntoView({block:'start'});
   renderQuestion();
 }
 
@@ -266,7 +570,7 @@ function renderQuestion(){
   const q = QUESTIONS[order[idx]];
   document.getElementById('section-chip').textContent = SECTIONS[q.s].name;
   document.getElementById('progress-label').textContent = `n = ${idx+1} / ${QUESTIONS.length}`;
-  document.getElementById('progress-fill').style.width = `${(idx/QUESTIONS.length)*100}%`;
+  document.getElementById('progress-fill').style.width = `${((idx+1)/QUESTIONS.length)*100}%`;
   document.getElementById('qtext').textContent = q.q;
   const optsEl = document.getElementById('opts');
   optsEl.innerHTML = '';
@@ -281,7 +585,7 @@ function renderQuestion(){
   const fb = document.getElementById('feedback');
   fb.className = 'feedback';
   document.getElementById('next-btn').disabled = true;
-  document.getElementById('next-btn').textContent = (idx === QUESTIONS.length-1) ? 'See my results' : 'Next question';
+  document.getElementById('next-btn').textContent = (idx === QUESTIONS.length-1) ? 'See My Results' : 'Next Question';
 }
 
 function answer(i, btn){
@@ -316,7 +620,7 @@ function dotplotSVG(score){
   let ticks = '';
   for(let t=0;t<=max;t++){
     ticks += `<line x1="${x(t)}" y1="11" x2="${x(t)}" y2="${t%4===0?23:19}" stroke="var(--line)" stroke-width="1.5"/>`;
-    if(t%4===0) ticks += `<text x="${x(t)}" y="33" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--ink-soft)">${t}</text>`;
+    if(t%4===0) ticks += `<text x="${x(t)}" y="33" text-anchor="middle" font-family="B612 Mono, monospace" font-size="9" fill="var(--ink-soft)">${t}</text>`;
   }
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Score ${score} out of 8">
     <line x1="${x(0)}" y1="15" x2="${x(max)}" y2="15" stroke="var(--line)" stroke-width="2"/>
@@ -329,6 +633,7 @@ function dotplotSVG(score){
 function showResults(){
   document.getElementById('screen-quiz').classList.add('hidden');
   document.getElementById('screen-results').classList.remove('hidden');
+  document.getElementById('assessment').scrollIntoView({block:'start'});
   const total = scores.reduce((a,b)=>a+b,0);
   let overall;
   if(total <= 9) overall = `You scored ${total} of 24 \u2014 a fresh start, which is exactly what this course is for. Work through the recommendations below before term and you'll arrive well prepared.`;
