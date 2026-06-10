@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Statistics — Self-Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F6F8;
+    --ink:#15233C;
+    --ink-soft:#48586F;
+    --cobalt:#2B5CE6;
+    --cobalt-deep:#1E43AC;
+    --amber:#D98E2B;
+    --green:#1F7A4D;
+    --red:#B03A2E;
+    --line:#D4DAE3;
+    --card:#FFFFFF;
+    --serif:'IBM Plex Serif', Georgia, serif;
+    --sans:'IBM Plex Sans', -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans);
+    background:var(--paper);
+    background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:32px 32px;
+    background-position:-1px -1px;
+    color:var(--ink);
+    min-height:100vh;
+    line-height:1.55;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:48px 20px 80px}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt-deep);margin-bottom:14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.15;margin-bottom:18px}
+  h1 em{font-style:italic;color:var(--cobalt)}
+  .lede{color:var(--ink-soft);font-size:1.02rem;max-width:54ch;margin-bottom:28px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px;box-shadow:0 1px 3px rgba(21,35,60,.06)}
+  .sections-preview{display:grid;gap:0;margin:26px 0 30px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+  .sec-row{display:flex;align-items:baseline;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .sec-row:last-child{border-bottom:none}
+  .sec-sym{font-family:var(--mono);font-size:1rem;color:var(--cobalt);min-width:2.2em}
+  .sec-name{font-weight:600;font-size:.95rem}
+  .sec-count{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--ink-soft)}
+  button{font-family:var(--sans);cursor:pointer}
+  .btn{
+    display:inline-block;background:var(--cobalt);color:#fff;border:none;border-radius:8px;
+    padding:13px 26px;font-size:1rem;font-weight:600;transition:background .15s;
+  }
+  .btn:hover{background:var(--cobalt-deep)}
+  .btn:focus-visible,.opt:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+  .btn:disabled{opacity:.4;cursor:default}
+  .note{font-family:var(--mono);font-size:.75rem;color:var(--ink-soft);margin-top:14px}
+
+  /* quiz */
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .chip{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--ink);padding:4px 10px;border-radius:4px}
+  .progress-label{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
+  .track{height:4px;background:var(--line);border-radius:2px;margin-bottom:26px;overflow:hidden}
+  .fill{height:100%;background:var(--cobalt);width:0%;transition:width .3s ease}
+  .qtext{font-family:var(--serif);font-size:1.22rem;font-weight:600;line-height:1.4;margin-bottom:22px}
+  .opts{display:grid;gap:10px}
+  .opt{
+    text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:8px;
+    padding:13px 16px;font-size:.97rem;line-height:1.45;color:var(--ink);
+    transition:border-color .12s, background .12s;display:flex;gap:12px;align-items:baseline;
+  }
+  .opt:hover:not(:disabled){border-color:var(--cobalt)}
+  .opt .key{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);min-width:1.1em}
+  .opt.correct{border-color:var(--green);background:#EFF7F2}
+  .opt.wrong{border-color:var(--red);background:#FBF1EF}
+  .opt:disabled{cursor:default}
+  .feedback{margin-top:18px;padding:14px 16px;border-radius:8px;font-size:.92rem;display:none}
+  .feedback.show{display:block}
+  .feedback.good{background:#EFF7F2;border:1px solid #BCDCCB;color:#174D32}
+  .feedback.bad{background:#FBF1EF;border:1px solid #E5C2BC;color:#6E261D}
+  .feedback .verdict{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:5px}
+  .nextrow{margin-top:20px;text-align:right}
+
+  /* results */
+  .result-sec{padding:20px 0;border-bottom:1px solid var(--line)}
+  .result-sec:last-of-type{border-bottom:none}
+  .result-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+  .result-head .sec-sym{min-width:auto}
+  .level{margin-left:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:4px}
+  .level.l0{background:#FBF1EF;color:var(--red);border:1px solid #E5C2BC}
+  .level.l1{background:#FAF3E6;color:#8A5A14;border:1px solid #E8D5B0}
+  .level.l2{background:#EFF7F2;color:var(--green);border:1px solid #BCDCCB}
+  .dotplot{margin:6px 0 12px}
+  .dotplot svg{display:block;width:100%;height:34px}
+  .recs{font-size:.9rem;color:var(--ink-soft)}
+  .recs a{color:var(--cobalt-deep);font-weight:500}
+  .recs a:hover{color:var(--cobalt)}
+  .overall{font-family:var(--serif);font-size:1.1rem;margin:6px 0 26px}
+  .restart{margin-top:30px;text-align:center}
+  .ghost{background:none;border:1.5px solid var(--ink);color:var(--ink);border-radius:8px;padding:11px 24px;font-weight:600;font-size:.95rem}
+  .ghost:hover{background:var(--ink);color:#fff}
+  .hidden{display:none}
+  @media (prefers-reduced-motion: reduce){ .fill{transition:none} }
+  @media (max-width:520px){ .card{padding:20px} .wrap{padding-top:30px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <div id="screen-intro">
+    <p class="eyebrow">Introduction to Statistics &middot; Pre-term self-assessment</p>
+    <h1>Where do you stand, <em>statistically speaking</em>?</h1>
+    <p class="lede">Twenty-four questions, three sections, no preparation needed. You'll get instant feedback on every answer and a section-by-section reading of where to brush up before term starts. Allow 15&ndash;20 minutes.</p>
+    <div class="sections-preview">
+      <div class="sec-row"><span class="sec-sym">x&#772;, s&sup2;</span><span class="sec-name">Descriptive statistics</span><span class="sec-count">n = 8</span></div>
+      <div class="sec-row"><span class="sec-sym">P(A|B)</span><span class="sec-name">Probability calculus</span><span class="sec-count">n = 8</span></div>
+      <div class="sec-row"><span class="sec-sym">H&#8320;</span><span class="sec-name">Inference</span><span class="sec-count">n = 8</span></div>
+    </div>
+    <button class="btn" onclick="startQuiz()">Start the assessment</button>
+    <p class="note">Your answers stay on this page &mdash; nothing is recorded or submitted.</p>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
+  <div id="screen-quiz" class="hidden">
+    <div class="topbar">
+      <span class="chip" id="section-chip">Descriptive statistics</span>
+      <span class="progress-label" id="progress-label">n = 1 / 24</span>
+    </div>
+    <div class="track"><div class="fill" id="progress-fill"></div></div>
+    <div class="card">
+      <p class="qtext" id="qtext"></p>
+      <div class="opts" id="opts"></div>
+      <div class="feedback" id="feedback"><span class="verdict" id="verdict"></span><span id="explain"></span></div>
+      <div class="nextrow"><button class="btn" id="next-btn" disabled onclick="nextQuestion()">Next question</button></div>
+    </div>
+  </div>
+
+  <!-- ============ RESULTS ============ -->
+  <div id="screen-results" class="hidden">
+    <p class="eyebrow">Your results</p>
+    <h1 id="results-title">The verdict</h1>
+    <p class="overall" id="overall-text"></p>
+    <div class="card" id="results-body"></div>
+    <div class="restart"><button class="ghost" onclick="location.reload()">Take it again</button></div>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+  {name:"Descriptive statistics", sym:"x\u0304, s\u00B2"},
+  {name:"Probability calculus", sym:"P(A|B)"},
+  {name:"Inference", sym:"H\u2080"}
+];
+
+const QUESTIONS = [
+  // ---------- Section 0: Descriptive statistics ----------
+  {s:0, q:"A survey records each respondent's T-shirt size as S, M, L or XL. What type of variable is this?",
+   opts:["Metric (continuous)","Ordinal","Nominal (categorical, unordered)","Discrete metric"],
+   a:1, ex:"The categories have a natural order (S < M < L < XL) but the gaps between them aren't measurable, so the variable is ordinal."},
+  {s:0, q:"A dataset of annual incomes is strongly right-skewed by a few very high earners. Which measure best describes a \u201Ctypical\u201D income?",
+   opts:["The arithmetic mean","The median","The mode","The range"],
+   a:1, ex:"The median is robust to extreme values; a few very high incomes pull the mean upwards but barely move the median."},
+  {s:0, q:"What is the median of the values 3, 5, 7, 9, 200?",
+   opts:["7","44.8","9","5"],
+   a:0, ex:"Sorted, the middle (3rd of 5) value is 7. Note how the outlier 200 doesn't affect it \u2014 the mean would be 44.8."},
+  {s:0, q:"You've measured the body height of 500 people and want to show how the values are distributed. Which chart is most appropriate?",
+   opts:["Pie chart","Bar chart with one bar per person","Histogram","Line chart over respondent number"],
+   a:2, ex:"Height is a continuous variable, so values are grouped into intervals (bins) and shown as a histogram. Bar and pie charts are for categorical data."},
+  {s:0, q:"Which dataset has the larger standard deviation? A = {2, 4, 6, 8}, B = {5, 5, 5, 5}",
+   opts:["A","B","They are equal","Cannot be determined without the sample size"],
+   a:0, ex:"B has no spread at all (s = 0). Standard deviation measures how far values lie from their mean \u2014 A's values vary, B's don't."},
+  {s:0, q:"For an exam-score dataset, the first quartile is 48 and the third quartile is 71. What is the interquartile range?",
+   opts:["59.5","119","23","Cannot be computed from quartiles alone"],
+   a:2, ex:"IQR = Q3 \u2212 Q1 = 71 \u2212 48 = 23. It's the width of the box in a box plot \u2014 the middle 50% of the data."},
+  {s:0, q:"Two variables have a Pearson correlation coefficient of r = \u22120.9. What does this tell you?",
+   opts:["There is almost no relationship between them","One variable causes a decrease in the other","There is a strong negative linear association","90% of the values are negative"],
+   a:2, ex:"r close to \u22121 means a strong negative linear association: when one variable is high, the other tends to be low. It says nothing about causation."},
+  {s:0, q:"When would you prefer Spearman's rank correlation over Pearson's correlation coefficient?",
+   opts:["When both variables are perfectly normally distributed","When the relationship is monotonic but not linear, or outliers are a concern","When the variables are measured in the same units","When the sample is larger than 30"],
+   a:1, ex:"Spearman works on ranks, so it captures any monotonic relationship and is far less sensitive to outliers than Pearson's r."},
+
+  // ---------- Section 1: Probability calculus ----------
+  {s:1, q:"A committee of 2 people is chosen from 5 candidates. The order of selection doesn't matter. How many different committees are possible?",
+   opts:["25","20","10","5"],
+   a:2, ex:"Combinations without order: C(5,2) = 5!/(2!\u00B73!) = 10. With order it would be 5\u00B74 = 20."},
+  {s:1, q:"Events A and B are disjoint (they cannot occur together), with P(A) = 0.3 and P(B) = 0.2. What is P(A \u222A B)?",
+   opts:["0.06","0.5","0.44","Cannot be determined"],
+   a:1, ex:"For disjoint events the intersection is empty, so P(A \u222A B) = P(A) + P(B) = 0.5."},
+  {s:1, q:"In a class of 100 students, 40 study economics, and 25 study both economics and statistics. What is the probability that a student studies statistics, given that they study economics?",
+   opts:["0.25","0.40","0.625","0.65"],
+   a:2, ex:"P(Stats | Econ) = P(both) / P(Econ) = 0.25 / 0.40 = 0.625. Conditional probability restricts attention to the 40 economics students."},
+  {s:1, q:"A disease affects 1 in 1,000 people. A test detects it 99% of the time, but also gives a false positive in 5% of healthy people. Someone tests positive. The probability they actually have the disease is closest to\u2026",
+   opts:["About 99%","About 95%","About 50%","About 2%"],
+   a:3, ex:"Bayes' theorem: among 1,000 people, \u22481 true positive but \u224850 false positives \u2014 so a positive result means roughly a 2% chance of disease. Base rates dominate."},
+  {s:1, q:"Two events A and B are statistically independent. Which equation must hold?",
+   opts:["P(A \u2229 B) = P(A) \u00B7 P(B)","P(A \u222A B) = P(A) + P(B)","P(A | B) = P(B | A)","P(A \u2229 B) = 0"],
+   a:0, ex:"Independence means knowing B tells you nothing about A: P(A|B) = P(A), which is equivalent to P(A \u2229 B) = P(A)\u00B7P(B). Disjoint (option d) is not the same as independent!"},
+  {s:1, q:"What is the expected value of a single roll of a fair six-sided die?",
+   opts:["3","3.5","Cannot be 3.5, since a die can't show 3.5","6/2 = 3 because the die is symmetric"],
+   a:1, ex:"E(X) = (1+2+3+4+5+6)/6 = 3.5. The expected value is a long-run average \u2014 it doesn't need to be an attainable outcome."},
+  {s:1, q:"You flip a fair coin 10 times and count the number of heads. Which distribution does this count follow?",
+   opts:["Poisson","Geometric","Normal","Binomial"],
+   a:3, ex:"A fixed number of independent trials, each with the same success probability, counted up \u2014 that's the binomial distribution, B(10, 0.5)."},
+  {s:1, q:"For a normally distributed variable, roughly what share of values lies within one standard deviation of the mean?",
+   opts:["50%","68%","95%","99.7%"],
+   a:1, ex:"The 68\u201395\u201399.7 rule: about 68% within \u00B11 SD, 95% within \u00B12 SD, 99.7% within \u00B13 SD."},
+
+  // ---------- Section 2: Inference ----------
+  {s:2, q:"You survey 500 students out of all 26,000 students at a university to estimate average study hours. The 500 students are\u2026",
+   opts:["The population","A sample","A parameter","An estimator"],
+   a:1, ex:"The 26,000 students are the population of interest; the 500 you actually observe are the sample drawn from it."},
+  {s:2, q:"An estimator is called unbiased if\u2026",
+   opts:["it always equals the true parameter value","its variance is zero","its expected value equals the true parameter value","it is computed from a random sample"],
+   a:2, ex:"Unbiasedness means the estimator is right on average: E(\u03B8\u0302) = \u03B8. Any single estimate can still miss \u2014 that's where variance comes in."},
+  {s:2, q:"What does the Central Limit Theorem say?",
+   opts:["Every large dataset is normally distributed","The sample mean of a large sample is approximately normally distributed, regardless of the population's distribution","The mean and median coincide in large samples","Larger samples always have smaller standard deviations"],
+   a:1, ex:"The CLT is about the distribution of the sample mean (or sum): it approaches a normal distribution as n grows, whatever the underlying population looks like (given finite variance)."},
+  {s:2, q:"Which is the correct interpretation of a 95% confidence interval for a population mean?",
+   opts:["There is a 95% probability that the true mean lies in this particular interval","95% of the observations lie inside the interval","If we repeated the sampling many times, about 95% of the intervals constructed this way would contain the true mean","The sample mean lies in the interval with 95% probability"],
+   a:2, ex:"The randomness is in the interval, not the parameter. The 95% refers to the long-run success rate of the procedure across repeated samples."},
+  {s:2, q:"A researcher wants to show that a new teaching method improves test scores. What is the appropriate null hypothesis H\u2080?",
+   opts:["The new method improves scores","The new method does not improve scores (no effect)","The new method worsens scores","The sample mean equals the population mean"],
+   a:1, ex:"H\u2080 is the sceptical default of \u201Cno effect\u201D; the data must provide evidence against it. The researcher's claim goes into the alternative hypothesis."},
+  {s:2, q:"A test yields p = 0.03. What does this p-value mean?",
+   opts:["There is a 3% probability that the null hypothesis is true","The effect is large and practically important","Assuming H\u2080 is true, data at least as extreme as ours would occur in about 3% of repeated samples","There is a 97% probability that the alternative hypothesis is true"],
+   a:2, ex:"The p-value is computed under the assumption that H\u2080 holds. It is not the probability that H\u2080 is true, and it says nothing about effect size."},
+  {s:2, q:"A Type I error occurs when\u2026",
+   opts:["we reject H\u2080 although it is true","we fail to reject H\u2080 although it is false","the sample is too small","the test statistic is miscalculated"],
+   a:0, ex:"Type I = false alarm (rejecting a true H\u2080), controlled by the significance level \u03B1. Type II = missed effect (failing to reject a false H\u2080)."},
+  {s:2, q:"Blood pressure is measured for the same 30 patients before and after taking a drug. Which test is appropriate for the mean change?",
+   opts:["Two-sample t-test for independent samples","Paired t-test","\u03C7\u00B2 independence test","One-sample Gauss test (\u03C3 known)"],
+   a:1, ex:"Before/after measurements on the same subjects are dependent pairs \u2014 the paired t-test works on the within-patient differences."}
+];
+
+const RECS = [
+  {weak:"Start with StatQuest's <a href='https://statquest.org/video-index/' target='_blank' rel='noopener'>Statistics Fundamentals</a> videos on the mean, variance, histograms and correlation, then play with <a href='https://seeing-theory.brown.edu/' target='_blank' rel='noopener'>Seeing Theory</a> to build visual intuition.",
+   mid:"Solid base \u2014 review quantiles, box plots and the difference between Pearson and Spearman correlation via <a href='https://statquest.org/video-index/' target='_blank' rel='noopener'>StatQuest</a>.",
+   strong:"You're ready. If you want a refresher, skim <a href='https://seeing-theory.brown.edu/' target='_blank' rel='noopener'>Seeing Theory</a>'s first chapter the week before term."},
+  {weak:"Work through <a href='https://seeing-theory.brown.edu/basic-probability/index.html' target='_blank' rel='noopener'>Seeing Theory's probability chapters</a>, then watch 3Blue1Brown on <a href='https://www.youtube.com/watch?v=HZGCoVF3YvM' target='_blank' rel='noopener'>Bayes' theorem</a> and <a href='https://www.youtube.com/watch?v=8idr1WZ1A7Q' target='_blank' rel='noopener'>binomial distributions</a>.",
+   mid:"Good instincts \u2014 sharpen conditional probability and Bayes with 3Blue1Brown's <a href='https://www.youtube.com/watch?v=HZGCoVF3YvM' target='_blank' rel='noopener'>Bayes video</a> and review expectation/variance rules.",
+   strong:"Strong. For enjoyment rather than need, watch 3Blue1Brown's <a href='https://www.youtube.com/playlist?list=PLZHQObOWTQDOMxJDswBaLu8xBMKxSTvg8' target='_blank' rel='noopener'>normal distribution playlist</a>."},
+  {weak:"Don't worry \u2014 this is what the course teaches. As a preview: 3Blue1Brown's <a href='https://www.youtube.com/playlist?list=PLZHQObOWTQDOMxJDswBaLu8xBMKxSTvg8' target='_blank' rel='noopener'>Central Limit Theorem video</a>, then StatQuest on <a href='https://www.youtube.com/watch?v=0oc49DyA3hU' target='_blank' rel='noopener'>hypothesis testing</a> and <a href='https://www.youtube.com/watch?v=vemZtEM63GY' target='_blank' rel='noopener'>p-values</a>.",
+   mid:"Decent intuition already \u2014 firm it up with <a href='https://www.jbstatistics.com/' target='_blank' rel='noopener'>jbstatistics</a>' hypothesis-testing chapter (Z tests, Type I/II errors, power).",
+   strong:"Impressive for an incoming student \u2014 the inference part of the course should consolidate quickly for you. Skim <a href='https://www.jbstatistics.com/' target='_blank' rel='noopener'>jbstatistics</a> on power and two-sample tests if you're curious."}
+];
+
+let order = [], idx = 0, scores = [0,0,0], answered = false;
+
+function startQuiz(){
+  order = QUESTIONS.map((_,i)=>i); // keep section order; shuffle within sections
+  const bySec = [[],[],[]];
+  order.forEach(i=>bySec[QUESTIONS[i].s].push(i));
+  bySec.forEach(arr=>{
+    for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  });
+  order = [].concat(...bySec);
+  idx = 0; scores = [0,0,0];
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  answered = false;
+  const q = QUESTIONS[order[idx]];
+  document.getElementById('section-chip').textContent = SECTIONS[q.s].name;
+  document.getElementById('progress-label').textContent = `n = ${idx+1} / ${QUESTIONS.length}`;
+  document.getElementById('progress-fill').style.width = `${(idx/QUESTIONS.length)*100}%`;
+  document.getElementById('qtext').textContent = q.q;
+  const optsEl = document.getElementById('opts');
+  optsEl.innerHTML = '';
+  const letters = ['a','b','c','d'];
+  q.opts.forEach((text,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = `<span class="key">${letters[i]})</span><span>${text}</span>`;
+    b.onclick = ()=>answer(i,b);
+    optsEl.appendChild(b);
+  });
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  document.getElementById('next-btn').disabled = true;
+  document.getElementById('next-btn').textContent = (idx === QUESTIONS.length-1) ? 'See my results' : 'Next question';
+}
+
+function answer(i, btn){
+  if(answered) return;
+  answered = true;
+  const q = QUESTIONS[order[idx]];
+  const buttons = document.querySelectorAll('.opt');
+  buttons.forEach(b=>b.disabled = true);
+  const correct = (i === q.a);
+  if(correct){ scores[q.s]++; btn.classList.add('correct'); }
+  else { btn.classList.add('wrong'); buttons[q.a].classList.add('correct'); }
+  const fb = document.getElementById('feedback');
+  fb.classList.add('show', correct ? 'good' : 'bad');
+  document.getElementById('verdict').textContent = correct ? 'Correct' : 'Not quite';
+  document.getElementById('explain').innerHTML = q.ex;
+  document.getElementById('next-btn').disabled = false;
+  document.getElementById('next-btn').focus();
+}
+
+function nextQuestion(){
+  idx++;
+  if(idx >= QUESTIONS.length){ showResults(); return; }
+  renderQuestion();
+}
+
+function levelOf(score){ return score <= 3 ? 0 : (score <= 6 ? 1 : 2); }
+const LEVEL_LABEL = ['Brush up','Nearly there','Ready'];
+
+function dotplotSVG(score){
+  const max = 8, W = 560, H = 34, pad = 10;
+  const x = s => pad + (s/max)*(W-2*pad);
+  let ticks = '';
+  for(let t=0;t<=max;t++){
+    ticks += `<line x1="${x(t)}" y1="11" x2="${x(t)}" y2="${t%4===0?23:19}" stroke="var(--line)" stroke-width="1.5"/>`;
+    if(t%4===0) ticks += `<text x="${x(t)}" y="33" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--ink-soft)">${t}</text>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Score ${score} out of 8">
+    <line x1="${x(0)}" y1="15" x2="${x(max)}" y2="15" stroke="var(--line)" stroke-width="2"/>
+    <line x1="${x(0)}" y1="15" x2="${x(score)}" y2="15" stroke="var(--cobalt)" stroke-width="3"/>
+    ${ticks}
+    <circle cx="${x(score)}" cy="15" r="7" fill="var(--cobalt)" stroke="#fff" stroke-width="2.5"/>
+  </svg>`;
+}
+
+function showResults(){
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.remove('hidden');
+  const total = scores.reduce((a,b)=>a+b,0);
+  let overall;
+  if(total <= 9) overall = `You scored ${total} of 24 \u2014 a fresh start, which is exactly what this course is for. Work through the recommendations below before term and you'll arrive well prepared.`;
+  else if(total <= 17) overall = `You scored ${total} of 24 \u2014 a solid foundation with a few specific gaps. Target the weaker sections below and you'll be in very good shape.`;
+  else overall = `You scored ${total} of 24 \u2014 you're arriving with strong intuitions. Use the pointers below to polish the remaining edges.`;
+  document.getElementById('overall-text').textContent = overall;
+
+  const body = document.getElementById('results-body');
+  body.innerHTML = SECTIONS.map((sec,i)=>{
+    const lvl = levelOf(scores[i]);
+    const rec = lvl===0 ? RECS[i].weak : (lvl===1 ? RECS[i].mid : RECS[i].strong);
+    return `<div class="result-sec">
+      <div class="result-head">
+        <span class="sec-sym">${sec.sym}</span>
+        <span class="sec-name">${sec.name}</span>
+        <span class="level l${lvl}">${LEVEL_LABEL[lvl]} \u00B7 ${scores[i]}/8</span>
+      </div>
+      <div class="dotplot">${dotplotSVG(scores[i])}</div>
+      <p class="recs">${rec}</p>
+    </div>`;
+  }).join('');
+}
+</script>
+</body>
+</html>
